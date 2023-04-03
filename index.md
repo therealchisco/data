@@ -3,15 +3,18 @@ layout: default
 title: Data Engineering - Case Study - TransUnion  
 ---
 
-# Your Project Title
+# Data Engineering - Case Study - TransUnion
+
+> Welcome to my case study where **I intend to showcase my skills which I believe are relevant for the role of Data Engineer I at TransUnion**. In this project, I have designed an ETL Pipeline for a distributed System. I aim to demonstrate my technical skills in data engineering, along with my ability to effectively work with different technologies to solve complex data problems.
 
 ## Overview
 
-Provide a brief overview of your project and its goals. This should include:
+* This case study aims to solve the problem of extracting and transforming Data stored in flat files in one server, moving it to a different server over the internet, and loading it into a Postgres Database. 
 
-- The problem you are trying to solve
-- The data you are working with
-- The tools and technologies you are using
+* In selecting the dataset for this case study, I purposely chose Telephony adjacent data because I believe it aligns with the type of data the Engineering Team at TransUnion may work with. I thought that familiarizing myself with this type of data would be beneficial in demonstrating my skills and understanding of the role 
+
+* To solve this problem, the tools and technologies used include Pandas for data extraction and transformation, Flask to create a REST API for transferring data over the internet, Airflow for scheduling and PostgresQL for loading the data into a database
+
 
 ## Architecture
 
