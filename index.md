@@ -115,6 +115,7 @@ I then ran some tests and verified the GET requests were working succesfully at 
 
 ![Result of Request](images/JSON.png)
 
+# Stay Tuned as I update this Case Study
 # TODO 
 ## Scheduling and Loading Data into Database
 
@@ -122,16 +123,14 @@ In a virtual server in the cloud provided by Lionde
 I installed Postgresql and airflow, I have come up with the callable python code
 that will fetch the JSON file, connects to Postgres and executes a query to load the data into the Database
 
-# Stay Tuned as I update this Case Study
+Here's a preview of the code I intend to use as well as the query
 
 
 ## Conclusion
 
-Summarize your project and its results. This should include:
-
-- A recap of the problem you were trying to solve
-- A summary of your solution
-- Any insights or conclusions you gained from your analysis
-- Recommendations for future work or improvements
+So far I have been able to demonstrate a few of my skills which I believe would be relevant for the data Engineering position,
+ranging from python programming and some of it's useful libraries for data centric roles.
+I aim to also showcase my ability to learn quickly given that before undertaking this challange my experience with Airflow was limited
+but I have now learned how to create basic DAGs and how to use the pythonOperator
 
 
