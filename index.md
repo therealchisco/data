@@ -116,7 +116,7 @@ I then ran some tests and verified the GET requests were working succesfully at 
 ![Result of Request](images/JSON.png)
 
 # Stay Tuned as I update this Case Study
-# TODO 
+# TODO PART 3 Loading Data 
 ## Scheduling and Loading Data into Database
 
 In a virtual server in the cloud provided by Lionde
@@ -125,6 +125,42 @@ that will fetch the JSON file, connects to Postgres and executes a query to load
 
 Here's a preview of the code I intend to use as well as the query
 
+```python
+import psycopg
+
+def callable_data_insert(file_path):
+    # Connect to the PostgreSQL database
+    conn = psycopg.connect(
+        host=localhost,
+        database=telecom,
+        user=postgres,
+        password=postgres
+    )
+
+    # Open a cursor to perform database operations
+    cur = conn.cursor()
+
+    # Define the SQL query to insert data into the table
+    query = f'''
+    COPY mytable (col1, col2, col3, col4, col5,col6,col7)
+    FROM {file_path}'
+    WITH (FORMAT json);
+    '''
+    
+    query = query.format(file_path)
+    
+    # Execute the SQL query to insert data into the table
+    cur.executemany(query)
+
+    # Commit the transaction
+    conn.commit()
+
+    # Close the cursor and the database connection
+    cur.close()
+    conn.close()
+```
+
+This callable function can then be called in a PythonOperator Task to schedule it's excecution using airflow
 
 ## Conclusion
 
