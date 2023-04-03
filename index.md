@@ -1,118 +1,72 @@
 ---
 layout: default
+title: Data Engineering - Case Study - TransUnion  
 ---
 
-Text can be **bold**, _italic_, or ~~strikethrough~~.
+# Your Project Title
 
-[Link to another page](./another-page.html).
+## Overview
 
-There should be whitespace between paragraphs.
+Provide a brief overview of your project and its goals. This should include:
 
-There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
+- The problem you are trying to solve
+- The data you are working with
+- The tools and technologies you are using
 
-# Header 1
+## Architecture
 
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
+Describe the architecture of your data engineering solution. This should include:
 
-## Header 2
+- A high-level diagram of your system
+- A description of each component in your system and how they interact
+- The technologies you used to build each component
 
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
+## Data Sources
 
-### Header 3
+List the data sources you are using in your project. This should include:
 
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
+- A description of each data source
+- How you obtained the data
+- The format of the data
+- Any data cleaning or preprocessing you did
 
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
-```
+## Data Pipeline
 
-#### Header 4
+Describe the data pipeline you created to transform your data. This should include:
 
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
+- The steps in your data pipeline
+- The tools and technologies you used for each step
+- Any data transformations or preprocessing you did
 
-##### Header 5
+## Data Storage
 
-1.  This is an ordered list following a header.
-2.  This is an ordered list following a header.
-3.  This is an ordered list following a header.
+Describe how you are storing your data. This should include:
 
-###### Header 6
+- The database or storage system you are using
+- The schema of your database
+- Any optimizations or indexing you did for performance
 
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
+## Data Visualization
 
-### There's a horizontal rule below this.
+Provide some visualizations of your data to help communicate your findings. This should include:
 
-* * *
+- The types of visualizations you created
+- The tools and technologies you used to create your visualizations
+- A description of what each visualization shows and any insights you gained
 
-### Here is an unordered list:
+## Conclusion
 
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
+Summarize your project and its results. This should include:
 
-### And an ordered list:
+- A recap of the problem you were trying to solve
+- A summary of your solution
+- Any insights or conclusions you gained from your analysis
+- Recommendations for future work or improvements
 
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
+## References
 
-### And a nested list:
+List any references or resources you used in your project. This should include:
 
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
-### Small image
-
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
-
-### Large image
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-
-```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+- Any data sources you used
+- Any tools or technologies you used
+- Any blog posts or tutorials you referenced
