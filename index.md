@@ -18,44 +18,112 @@ title: Data Engineering - Case Study - TransUnion
 
 ## Architecture
 
-Describe the architecture of your data engineering solution. This should include:
+Here's a visual representation of the Data Pipeline, eventhough the scale of the project isn't that large I tried to make use of good practices that would allow it to wrok even if the volume and velocity of data were to be scaled up
 
-- A high-level diagram of your system
-- A description of each component in your system and how they interact
-- The technologies you used to build each component
+![Diagram of the Piepline](images/ETL.png)
 
-## Data Sources
+* **Step 1: I will utilize the Python Library Pandas and some OOP programming we extract the data from the flat files in a server, this is donde in a way that considers scalabiluty by processing each file in slices/chunks to prevent exceeding memory limitations**
 
-List the data sources you are using in your project. This should include:
+* **Step 2: I'll proceed to transform the data a little in terms of file format (from csv to Json) and ensure to eliminate some of the irrelevant data before sending it over HTTP using a Flask API to a different server**
 
-- A description of each data source
-- How you obtained the data
-- The format of the data
-- Any data cleaning or preprocessing you did
+* **Step 3: The server that receives the data will schedule the Loading Stage by reading directly from the JSON files, and inserting the Data into a PostgreSQL Database that's running locally**
 
-## Data Pipeline
+# STEP 1
 
-Describe the data pipeline you created to transform your data. This should include:
+## Data Extraction and Transformation
 
-- The steps in your data pipeline
-- The tools and technologies you used for each step
-- Any data transformations or preprocessing you did
+We'll start with the first step, you can find the code [here](flask-api/).
+Before creating the logic in the API that handles the tranfer of data, we need to extract the data from [our csv file](flask-api/data/telecom.csv)
+I decided to use the **Object Oriented Programming** paradigm here in order to be able to extend the logic of the extraction if in the future I needed to work with multiple endpoints or multiple data soruces. 
 
-## Data Storage
 
-Describe how you are storing your data. This should include:
+```python
+import pandas as pd
 
-- The database or storage system you are using
-- The schema of your database
-- Any optimizations or indexing you did for performance
+class CsvReader:
+    def __init__(self, file_path):
+        self.file_path = file_path
 
-## Data Visualization
+    def read_csv(self, chunksize):
+        chunks = pd.read_csv(self.file_path, chunksize=chunksize)
+        return chunks
 
-Provide some visualizations of your data to help communicate your findings. This should include:
+class CsvProcessor:
+    def __init__(self, file_path, chunksize):
+        self.reader = CsvReader(file_path)
+        self.chunks = self.reader.read_csv(chunksize)
+        self.iterable_chunks = iter(self.chunks)
+    
+    def __transform_chunk(self, chunk):
+        # Here we are removing the columns
+        # that are irrelevant from the chunk
+        # DataFrame
+        transformed_chunk = chunk.iloc[:,3:]
+        return transformed_chunk
 
-- The types of visualizations you created
-- The tools and technologies you used to create your visualizations
-- A description of what each visualization shows and any insights you gained
+    def __process_next_chunk(self):
+        # We try to iterate the chunks until exhausted
+        try:
+            chunk = next(self.iterable_chunks)
+        except StopIteration:
+            print("End of File and Iterator")
+            chunk = None
+        if chunk is not None:
+            chunk = self.__transform_chunk(chunk)
+        return chunk
+    
+    def json_chunk(self):
+        # Here we create a DataFrame chunk
+        # and use the to_json from the pandas library to
+        # return it as JSON for our API
+        self.chunk = self.__process_next_chunk()
+        self.chunk = self.__transform_chunk(self.chunk)
+        return self.chunk.to_json(orient='records')
+  ```
+
+This approach allows for not only scalability by processing the flat files (csvs) in chunks and creating an iterator that returns each slice until all data has been exhausted, it also takes into account certain errors and exceptions that could occur and handles them and informs the user when it happens.
+
+Next I coded up a simple API endpoint using the Pandas Library which will allow to fetch the data from our remote Server.
+
+```python
+from flask import Flask, jsonify
+from csv_reader import CsvProcessor
+
+app = Flask(__name__)
+csv_file_path = 'data/telecom.csv'
+
+@app.route('/', methods=['GET'])
+def get_json():
+    """
+    Returns Data in JSON format using an Object
+    of the class CsvProcessor we created and the json_chunk method 
+    as the response to a GET request.
+    """
+    print("Aha")
+    try:
+        processor = CsvProcessor(csv_file_path,1000)
+        json_chunk = processor.json_chunk()
+        return json_chunk, 200
+    except Exception as e:
+        error_message = {'error': str(e)}
+        return jsonify(error_message), 500
+
+if __name__ == '__main__':
+    app.run()
+  ```
+I then ran some tests and verified the GET requests were working succesfully at the specified endpoin
+
+![Result of Request](images/JSON.png)
+
+# TODO 
+## Scheduling and Loading Data into Database
+
+In a virtual server in the cloud provided by Lionde
+I installed Postgresql and airflow, I have come up with the callable python code
+that will fetch the JSON file, connects to Postgres and executes a query to load the data into the Database
+
+# Stay Tuned as I update this Case Study
+
 
 ## Conclusion
 
@@ -66,10 +134,4 @@ Summarize your project and its results. This should include:
 - Any insights or conclusions you gained from your analysis
 - Recommendations for future work or improvements
 
-## References
 
-List any references or resources you used in your project. This should include:
-
-- Any data sources you used
-- Any tools or technologies you used
-- Any blog posts or tutorials you referenced
